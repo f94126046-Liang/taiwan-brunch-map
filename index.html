@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f4ea">
+  <meta name="description" content="沿著台灣地圖，發現各地早餐與早午餐的好味道。">
+  <title>早安，台灣｜台灣早午餐地圖</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="早安，台灣首頁">
+      <span class="brand-mark" aria-hidden="true">早</span>
+      <span>早安，台灣<span class="brand-sub">GOOD MORNING, TAIWAN</span></span>
+    </a>
+    <nav aria-label="主要導覽"><a href="#explore">開始探索</a><a href="#about">關於地圖</a></nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="sun-dot" aria-hidden="true"></span> 一張地圖，收藏台灣的早晨</p>
+        <h1 id="hero-title">今天的第一站，<br><em>想吃哪一味？</em></h1>
+        <p class="hero-intro">從一碗熱豆漿、一份蛋餅，到慢慢吃的早午餐。<br class="desktop-break">找間喜歡的店，讓旅程從早餐開始。</p>
+        <a class="hero-link" href="#explore">往下找早餐 <span aria-hidden="true">↓</span></a>
+      </div>
+      <div class="hero-art" aria-label="吐司、煎蛋與咖啡組成的早餐插畫">
+        <div class="art-sun"></div>
+        <div class="plate"><div class="toast"><div class="egg"><i></i></div><div class="toast-edge"></div></div></div>
+        <div class="coffee"><span></span></div>
+        <span class="art-leaf leaf-one">✳</span><span class="art-leaf leaf-two">✳</span>
+        <span class="art-note">一口剛剛好<br>的日常。</span>
+        <span class="art-caption">SLOW MORNING CLUB · EST. 2026</span>
+      </div>
+      <div class="hero-stamp" aria-hidden="true">台灣<br>早餐<br>散策</div>
+    </section>
+
+    <section class="explore-section" id="explore" aria-labelledby="explore-title">
+      <div class="section-heading">
+        <div><p class="eyebrow">FIND YOUR MORNING</p><h2 id="explore-title">早餐地圖</h2></div>
+        <p class="result-total"><strong id="result-count">—</strong><span>個早晨提案</span></p>
+      </div>
+      <div class="toolbar" role="search">
+        <label class="search-box"><span class="sr-only">搜尋店名、地區或餐點</span><span aria-hidden="true">⌕</span><input id="search-input" type="search" placeholder="搜尋店名、地區或餐點…" autocomplete="off"></label>
+        <label class="select-wrap"><span class="sr-only">選擇縣市</span><select id="city-filter"><option value="">所有縣市</option></select><span aria-hidden="true">⌄</span></label>
+        <label class="select-wrap"><span class="sr-only">選擇早餐類型</span><select id="category-filter"><option value="">所有類型</option></select><span aria-hidden="true">⌄</span></label>
+        <button class="reset-button" id="reset-filters" type="button">清除條件</button>
+      </div>
+
+      <div class="explore-grid">
+        <div class="map-panel">
+          <div class="map-topline"><span>TAIWAN ISLAND</span><span>點選標記探索</span></div>
+          <div class="map-canvas" id="map-canvas" aria-label="台灣早午餐示意地圖">
+            <svg class="island" viewBox="0 0 440 560" role="img" aria-labelledby="island-title island-desc">
+              <title id="island-title">台灣本島示意圖</title><desc id="island-desc">標記呈現店家大致所在縣市，不代表精確地址位置。</desc>
+              <path d="M250 26 C281 36 300 66 306 101 C313 138 300 168 290 199 C279 232 282 265 265 298 C251 325 251 361 231 391 C212 420 204 457 184 487 C170 509 159 535 140 535 C124 534 119 509 116 488 C111 457 97 431 95 398 C93 364 79 337 83 304 C87 275 77 245 84 215 C91 183 102 155 105 123 C108 94 118 64 140 43 C164 20 203 9 233 18 Z" />
+              <path class="ridge" d="M226 61 C246 112 247 157 224 201 C213 229 215 262 194 293 C183 327 176 359 160 392 C150 424 142 460 132 487" />
+              <path class="coast-line" d="M108 202 C137 217 161 216 185 202 M99 307 C124 316 147 311 168 300 M111 403 C132 408 150 402 170 389" />
+              <path class="islet" d="M335 307 C344 298 358 303 360 314 C360 325 345 329 337 322 Z" />
+              <path class="islet" d="M301 425 C308 420 317 424 317 431 C316 438 307 441 302 436 Z" />
+            </svg>
+            <div class="map-label label-north">北部</div><div class="map-label label-central">中部</div><div class="map-label label-south">南部</div>
+            <div id="map-markers" class="map-markers" aria-label="店家地圖標記"></div>
+            <div class="map-legend"><span><i></i> 早餐據點</span><span>示意位置</span></div>
+          </div>
+          <p class="map-caption">地圖上的點位為縣市示意位置，請透過店家來源確認實際地址。</p>
+        </div>
+        <div class="places-column">
+          <div class="list-header"><span>沿著味道，從北到南</span><span id="list-hint">點卡片看地圖位置</span></div>
+          <div id="places-list" class="places-list" aria-live="polite"></div>
+          <div id="empty-state" class="empty-state" hidden><span aria-hidden="true">☼</span><h3>這個條件還沒有早餐</h3><p>試試其他關鍵字，或清除篩選條件。</p><button type="button" id="empty-reset">看全部店家</button></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="morning-note" id="about"><span class="note-icon" aria-hidden="true">☀</span><div><p class="eyebrow">A NOTE BEFORE YOU GO</p><h2>每個地方，都有自己的早晨。</h2><p>這張地圖持續收集台灣各地的早餐日常。營業資訊可能調整，出發前記得查看店家最新公告。</p></div><span class="note-decoration" aria-hidden="true">好好<br>吃早餐</span></section>
+  </main>
+  <footer><a class="brand footer-brand" href="#top"><span class="brand-mark" aria-hidden="true">早</span><span>早安，台灣<span class="brand-sub">GOOD MORNING, TAIWAN</span></span></a><p>一張還在長大的早餐地圖　·　資料來源列於各店家卡片</p><a class="back-top" href="#top">回到頂端 ↑</a></footer>
+</body>
+</html>
